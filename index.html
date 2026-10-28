@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caderno de Prompts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=Caveat:wght@500;700&display=swap">
+<style>
+/* Layout: an open school notebook — ruled paper, index cards and sticky notes, handwritten notes in the margins. */
+:root {
+  --paper: #f7f5f0;
+  --paper-line: #e4dfd5;
+  --card: #ffffff;
+  --ink: #23211e;
+  --ink-soft: #625e57;
+  --pen: #1f4fa3;
+  --pen-soft: #e9eef7;
+  --marker: #ffe97a;
+  --r: #e9e3ff; --r-ink: #5b3fc4;
+  --c: #dcebff; --c-ink: #1f5fb8;
+  --f: #dcf3df; --f-ink: #1f7a3d;
+  --o: #fff1b8; --o-ink: #8a6200;
+  --note-yellow: #fff6bf;
+  --note-green: #e3f6e3;
+  --note-pink: #ffe4ec;
+  --note-ink: #2b2f3a;
+  --ok: #1f7a3d; --ok-soft: #dff3e4;
+  --no: #b3261e; --no-soft: #fde3e1;
+  --tape: rgba(170, 190, 230, .55);
+  --shadow: 0 1px 2px rgba(29, 42, 68, .08), 0 4px 14px rgba(29, 42, 68, .07);
+  --f-head: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --f-hand: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1d1c1a; --paper-line: #34322e; --card: #262522;
+    --ink: #ede9e2; --ink-soft: #aaa59c; --pen: #93b2e6; --pen-soft: #2c3341; --marker: #6b5a12;
+    --r: #362d5c; --r-ink: #c4b5ff; --c: #1f3556; --c-ink: #9cc4ff; --f: #1f3a28; --f-ink: #8fdca8; --o: #44391a; --o-ink: #f2d27a;
+    --note-yellow: #3d3720; --note-green: #213a2a; --note-pink: #43283a; --note-ink: #eef1f7;
+    --ok: #7ad79a; --ok-soft: #1f3a28; --no: #ff9d94; --no-soft: #47231f; --tape: rgba(120, 140, 190, .35);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #1d1c1a; --paper-line: #34322e; --card: #262522;
+  --ink: #ede9e2; --ink-soft: #aaa59c; --pen: #93b2e6; --pen-soft: #2c3341; --marker: #6b5a12;
+  --r: #362d5c; --r-ink: #c4b5ff; --c: #1f3556; --c-ink: #9cc4ff; --f: #1f3a28; --f-ink: #8fdca8; --o: #44391a; --o-ink: #f2d27a;
+  --note-yellow: #3d3720; --note-green: #213a2a; --note-pink: #43283a; --note-ink: #eef1f7;
+  --ok: #7ad79a; --ok-soft: #1f3a28; --no: #ff9d94; --no-soft: #47231f; --tape: rgba(120, 140, 190, .35);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.6;
+}
+h1, h2, h3 { font-family: var(--f-head); text-wrap: balance; line-height: 1.15; margin: 0; }
+p, ul { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 1000px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.hl { background: linear-gradient(transparent 45%, var(--marker) 45% 88%, transparent 88%); padding: 0 2px; }
+
+header .wrap { padding-block: 40px 28px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+.event { font-family: var(--f-hand); font-size: 26px; color: var(--pen); transform: rotate(-2deg); display: inline-block; margin-bottom: 4px; }
+header h1 { font-size: clamp(34px, 6vw, 54px); font-weight: 900; letter-spacing: -0.01em; }
+header .sub { font-size: clamp(18px, 2.4vw, 21px); color: var(--ink-soft); margin-top: 6px; }
+.hello { margin-top: 22px; max-width: 62ch; background: var(--card); border-radius: 4px 14px 14px 14px; padding: 16px 18px; box-shadow: var(--shadow); }
+.hello p + p { margin-top: 8px; }
+.hello .sign { font-family: var(--f-hand); font-size: 23px; color: var(--pen); }
+header img { width: 140px; height: auto; }
+
+nav.index { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 2px dashed var(--paper-line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+nav.index .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 8px; scrollbar-width: thin; }
+nav.index a { flex: none; text-decoration: none; color: var(--ink-soft); font-weight: 700; font-size: 15px; padding: 5px 11px; border-radius: 8px; }
+nav.index a:hover { color: var(--ink); background: var(--pen-soft); }
+
+main .wrap { padding-block: 24px 64px; display: grid; gap: 64px; }
+section { scroll-margin-top: 64px; display: grid; gap: 18px; min-width: 0; }
+.head { display: grid; gap: 6px; max-width: 68ch; }
+.head .kicker { font-family: var(--f-hand); font-size: 24px; color: var(--pen); line-height: 1; }
+.head h2 { font-size: clamp(26px, 4vw, 34px); font-weight: 900; }
+.head p { color: var(--ink-soft); }
+.sheet { background: var(--card); border-radius: 14px; padding: 22px; box-shadow: var(--shadow); min-width: 0; }
+.small { font-size: 14.5px; color: var(--ink-soft); }
+.margin-note { font-family: var(--f-hand); font-size: 23px; line-height: 1.2; color: var(--pen); }
+
+.btn { border: 2px solid var(--ink); background: var(--card); padding: 7px 14px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 15px; }
+.btn:hover { background: var(--pen-soft); }
+.btn.main { background: var(--ink); color: var(--paper); }
+.btn.main:hover { background: var(--pen); border-color: var(--pen); }
+.btn.sm { font-size: 13.5px; padding: 4px 10px; border-width: 1.5px; }
+
+/* tape + notes */
+.taped { position: relative; }
+.note { border-radius: 3px; padding: 20px 18px 16px; box-shadow: var(--shadow); color: var(--note-ink); }
+.note.y { background: var(--note-yellow); } .note.g { background: var(--note-green); } .note.p { background: var(--note-pink); }
+.prompt { font-size: 16.5px; line-height: 1.7; }
+.prompt mark { background: transparent; color: inherit; border-bottom: 2px dashed currentColor; font-weight: 700; padding: 0 1px; }
+
+/* R.C.F.O segments */
+.seg { border-radius: 4px; padding: 2px 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; color: var(--ink); }
+.seg-r { background: var(--r); } .seg-c { background: var(--c); } .seg-f { background: var(--f); } .seg-o { background: var(--o); }
+.seg.new { animation: pop .5s ease-out; }
+@keyframes pop { from { outline: 3px solid var(--pen); } to { outline: 3px solid transparent; } }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14.5px; font-weight: 700; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+
+/* 1: a sigla */
+.letters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.letter { padding: 16px; border-radius: 12px; display: grid; gap: 4px; align-content: start; }
+.letter b { font-family: var(--f-head); font-weight: 900; font-size: 44px; line-height: 1; }
+.letter strong { font-family: var(--f-head); font-size: 18px; font-weight: 800; }
+.letter span { font-size: 15px; }
+.letter.r { background: var(--r); } .letter.r b { color: var(--r-ink); }
+.letter.c { background: var(--c); } .letter.c b { color: var(--c-ink); }
+.letter.f { background: var(--f); } .letter.f b { color: var(--f-ink); }
+.letter.o { background: var(--o); } .letter.o b { color: var(--o-ink); }
+
+/* 2: passo a passo */
+.walk { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.walk-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 16px; }
+.walk-tabs button { border: 2px solid var(--paper-line); background: var(--card); border-radius: 10px; padding: 8px 6px; cursor: pointer; display: grid; justify-items: center; gap: 0; }
+.walk-tabs button b { font-family: var(--f-head); font-weight: 900; font-size: 24px; line-height: 1.1; }
+.walk-tabs button span { font-size: 13.5px; font-weight: 700; color: var(--ink-soft); }
+.walk-tabs button[aria-pressed="true"] { border-color: var(--ink); background: var(--pen-soft); }
+.walk-tabs button.done b::after { content: " ✓"; font-size: 15px; color: var(--ok); }
+.step-body { display: grid; gap: 12px; }
+.step-body h3 { font-size: 23px; font-weight: 900; }
+.compare { display: grid; gap: 8px; }
+.compare div { padding: 10px 14px; border-radius: 10px; font-size: 16px; }
+.compare .bad { background: var(--no-soft); }
+.compare .good { background: var(--ok-soft); }
+.compare b { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; }
+.compare .bad b { color: var(--no); } .compare .good b { color: var(--ok); }
+.verbs { display: flex; flex-wrap: wrap; gap: 6px; }
+.verbs span { background: var(--f); color: var(--f-ink); font-weight: 800; padding: 2px 10px; border-radius: 999px; font-size: 14.5px; }
+.walk-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.growing { position: sticky; top: 72px; display: grid; gap: 10px; }
+.growing .note { background: var(--card); color: var(--ink); }
+
+/* 3: builder */
+.builder { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1.5px solid var(--paper-line); background: var(--card); border-radius: 999px; padding: 6px 13px; cursor: pointer; font-weight: 700; font-size: 14.5px; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.form { display: grid; gap: 14px; }
+.field { display: grid; gap: 4px; }
+.field label, .field .lbl { font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.field label i { font-style: normal; font-family: var(--f-head); font-weight: 900; width: 24px; height: 24px; border-radius: 6px; display: inline-grid; place-items: center; font-size: 14px; }
+.field input, .field select, .field textarea { width: 100%; padding: 8px 10px; border: 1.5px solid var(--paper-line); border-radius: 8px; background: var(--paper); font-size: 16px; line-height: 1.5; }
+.field textarea { resize: vertical; min-height: 64px; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--pen); outline: none; }
+.foco-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 8px; }
+.check-line { display: flex; gap: 10px; align-items: start; cursor: pointer; font-size: 15.5px; }
+.check-line input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--pen); flex: none; }
+.out { display: grid; gap: 14px; position: sticky; top: 72px; }
+.out-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.out .taped { background: var(--card); border-radius: 3px; padding: 20px 18px 16px; box-shadow: var(--shadow); }
+.meter { display: flex; gap: 6px; }
+.meter span { flex: 1; height: 6px; border-radius: 3px; background: var(--paper-line); }
+.meter span.on.r { background: var(--r-ink); } .meter span.on.c { background: var(--c-ink); } .meter span.on.f { background: var(--f-ink); } .meter span.on.o { background: var(--o-ink); }
+
+/* 4: prompts montados */
+.lib { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px 20px; padding-top: 8px; }
+.card { background: var(--card); border-radius: 4px; padding: 20px 18px 16px; box-shadow: var(--shadow); display: grid; gap: 10px; align-content: start; min-width: 0; }
+.card h3 { font-size: 19px; font-weight: 900; }
+.card .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.card .stage { font-family: var(--f-hand); font-size: 21px; line-height: 1; color: var(--pen); }
+.card .prompt { font-size: 15.5px; }
+.card details summary { cursor: pointer; font-weight: 700; font-size: 14.5px; }
+.card details p { margin-top: 6px; font-size: 15px; }
+.card .ex { white-space: pre-wrap; font-size: 14.5px; background: var(--paper); padding: 8px 10px; border-radius: 8px; }
+
+/* 5: quiz */
+.quiz { display: grid; gap: 14px; }
+.quiz-top { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ticks { display: flex; gap: 8px; font-family: var(--f-hand); font-size: 26px; line-height: 1; color: var(--ink-soft); }
+.ticks .ok { color: var(--ok); } .ticks .no { color: var(--no); }
+.situ { font-size: 19px; font-weight: 700; }
+.opts { display: grid; gap: 10px; }
+.opt { text-align: left; border: 1.5px solid var(--paper-line); background: var(--card); border-radius: 12px; padding: 12px 14px; cursor: pointer; font-size: 16px; line-height: 1.5; }
+.opt:hover:not(:disabled) { border-color: var(--pen); }
+.opt.right { border-color: var(--ok); background: var(--ok-soft); }
+.opt.wrong { border-color: var(--no); background: var(--no-soft); }
+.opt:disabled { cursor: default; }
+.fb { font-size: 16px; padding: 12px 14px; border-radius: 12px; background: var(--paper); }
+.fb .margin-note { display: block; margin-bottom: 2px; }
+
+/* 6: cuidados */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.note h3 { font-size: 21px; font-weight: 900; margin-bottom: 8px; }
+.note ul { padding-left: 20px; display: grid; gap: 8px; }
+.note li b { display: block; }
+.rounds { display: grid; gap: 10px; }
+.msg { padding: 10px 14px; border-radius: 14px; max-width: 64ch; font-size: 16px; }
+.msg.me { background: var(--pen-soft); justify-self: end; border-bottom-right-radius: 4px; }
+.msg.ai { background: var(--paper); border: 1.5px solid var(--paper-line); border-bottom-left-radius: 4px; }
+.msg .who { font-weight: 800; font-size: 13.5px; color: var(--ink-soft); display: block; }
+.ck { display: grid; gap: 4px; }
+.ck label { display: flex; gap: 10px; align-items: start; cursor: pointer; padding: 7px 0; border-bottom: 1.5px dashed var(--paper-line); }
+.ck input { margin-top: 5px; width: 18px; height: 18px; accent-color: var(--ok); flex: none; }
+.ck label:has(input:checked) span { text-decoration: line-through; text-decoration-color: var(--ok); color: var(--ink-soft); }
+.ck-result { font-family: var(--f-hand); font-size: 26px; line-height: 1.1; color: var(--ink-soft); margin-top: 8px; }
+.ck-result.done { color: var(--ok); }
+
+/* 7: dúvidas */
+.faq { display: grid; gap: 10px; }
+.faq details { background: var(--card); border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow); }
+.faq summary { cursor: pointer; font-weight: 800; font-family: var(--f-head); font-size: 17.5px; }
+.faq details p { margin-top: 8px; color: var(--ink-soft); }
+
+footer { border-top: 2px dashed var(--paper-line); background: var(--paper); }
+footer .wrap { padding-block: 22px 36px; display: grid; gap: 6px; font-size: 15px; color: var(--ink-soft); }
+footer strong { color: var(--ink); }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 8px 16px; border-radius: 999px; font-weight: 700; font-size: 14.5px; z-index: 20; }
+
+@media (max-width: 820px) {
+  .walk, .builder, .two { grid-template-columns: 1fr; }
+  .letters { grid-template-columns: 1fr 1fr; }
+  .growing, .out { position: static; }
+}
+@media (max-width: 520px) {
+  header .wrap { grid-template-columns: 1fr; }
+  header img { width: 96px; order: -1; }
+  .foco-row { grid-template-columns: 1fr; }
+  .sheet { padding: 16px; }
+  .lib { grid-template-columns: 1fr; }
+  .lib .card { transform: none !important; }
+  .walk-tabs button span { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } html { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div>
+      <span class="event">Minicurso da SNCT 2026 · UFRPE</span>
+      <h1>Estudar com Inteligência</h1>
+      <p class="sub">Potencializando a Aprendizagem com o Gemini Notebook</p>
+      <div class="hello">
+        <p>Oi! Esta página junta o que a gente mostrou na oficina sobre <span class="hl">prompts</span> (o nome do pedido que você escreve para a IA): como montar um pedido com papel, contexto, foco e formato, e como fazer o Gemini Notebook responder só com as suas fontes, mostrando a página de onde tirou cada informação. Aqui a gente aplica tudo num momento que dá frio na barriga em muita gente: <strong>escrever e publicar um artigo científico</strong>.</p>
+        <p>Você vai ver o passo a passo para montar um bom pedido, montar o seu e pegar exemplos prontos para cada fase, da revisão de literatura até a resposta aos pareceristas. Pode mexer à vontade, nada aqui quebra.</p>
+        <p class="sign">Moisés e Déborah</p>
+      </div>
+    </div>
+    <img src="data:image/png;base64,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" alt="Logo do minicurso: arcos em tons de azul">
+  </div>
+</header>
+
+<nav class="index" aria-label="Partes da página">
+  <div class="wrap">
+    <a href="#rcfo">1. O jeito R.C.F.O.</a>
+    <a href="#passo">2. Passo a passo</a>
+    <a href="#montar">3. Monte o seu</a>
+    <a href="#prontos">4. Prompts montados</a>
+    <a href="#teste">5. Teste rápido</a>
+    <a href="#cuidados">6. Cuidados</a>
+    <a href="#duvidas">7. Dúvidas</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+
+    <section id="rcfo">
+      <div class="head">
+        <span class="kicker">parte 1</span>
+        <h2>Quatro coisas que todo bom pedido tem</h2>
+        <p>Quando a resposta da IA vem genérica, quase sempre é porque faltou alguma destas peças. Para lembrar fácil: <strong>R.C.F.O.</strong> As cores de cada uma aparecem em todos os exemplos da página.</p>
+      </div>
+      <div class="letters">
+        <div class="letter r"><b>R</b><strong>Papel</strong><span>Quem a IA deve ser. Muda o vocabulário e o nível de exigência.</span></div>
+        <div class="letter c"><b>C</b><strong>Contexto</strong><span>O que está acontecendo. A IA não conhece o seu artigo nem a sua revista.</span></div>
+        <div class="letter f"><b>F</b><strong>Foco</strong><span>O que exatamente ela deve fazer, com um verbo claro.</span></div>
+        <div class="letter o"><b>O</b><strong>Formato</strong><span>Como você quer receber a resposta: tabela, tópicos, limite de palavras.</span></div>
+      </div>
+      <p class="small">O R vem de <em>role</em> (papel) e o O de <em>output</em> (saída), em inglês.</p>
+    </section>
+
+    <section id="passo">
+      <div class="head">
+        <span class="kicker">parte 2</span>
+        <h2>Passo a passo: montando um pedido para revisar o seu artigo</h2>
+        <p>Vamos construir juntos um pedido de verdade, uma letra por vez. Repare como o bilhete do lado vai crescendo.</p>
+      </div>
+      <div class="walk">
+        <div class="sheet">
+          <div class="walk-tabs" id="walk-tabs" role="group" aria-label="Letras"></div>
+          <div class="step-body" id="step-body" aria-live="polite"></div>
+        </div>
+        <div class="growing">
+          <span class="margin-note" id="grow-tag"></span>
+          <div class="note taped"><p class="prompt" id="grow"></p></div>
+          <div class="legend" aria-hidden="true">
+            <span><i class="seg-r"></i>Papel</span><span><i class="seg-c"></i>Contexto</span><span><i class="seg-f"></i>Foco</span><span><i class="seg-o"></i>Formato</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="montar">
+      <div class="head">
+        <span class="kicker">parte 3</span>
+        <h2>Agora monte o seu</h2>
+        <p>Escolha a fase em que você está. A gente preenche um exemplo e você troca pelo seu caso. O pedido vai se montando ao lado.</p>
+      </div>
+      <div class="sheet builder">
+        <div class="form">
+          <div class="field">
+            <span class="lbl">Em que fase você está?</span>
+            <div class="chips" id="sits" role="group" aria-label="Fase do artigo"></div>
+          </div>
+          <div class="field">
+            <label for="b-r"><i class="seg-r">R</i>Quem a IA deve ser?</label>
+            <input id="b-r">
+          </div>
+          <div class="field">
+            <label for="b-c"><i class="seg-c">C</i>Qual é a situação?</label>
+            <textarea id="b-c" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label for="b-fv"><i class="seg-f">F</i>O que ela deve fazer?</label>
+            <div class="foco-row">
+              <select id="b-fv" aria-label="Verbo">
+                <option>Identifique</option><option>Compare</option><option>Aponte</option><option>Liste</option><option>Sugira</option><option>Organize</option><option>Confira</option>
+              </select>
+              <input id="b-f" aria-label="Resto do pedido">
+            </div>
+          </div>
+          <div class="field">
+            <label for="b-o"><i class="seg-o">O</i>Como quer a resposta?</label>
+            <input id="b-o">
+          </div>
+          <label class="check-line" for="b-src"><input type="checkbox" id="b-src" checked><span>Usar só as fontes do caderno e dizer a página de cada informação</span></label>
+        </div>
+        <div class="out">
+          <div class="out-top">
+            <span class="margin-note" id="out-tag"></span>
+            <button class="btn main" type="button" id="copy-built">Copiar pedido</button>
+          </div>
+          <div class="meter" id="meter" aria-hidden="true"><span class="r"></span><span class="c"></span><span class="f"></span><span class="o"></span></div>
+          <div class="taped"><p class="prompt" id="built"></p></div>
+          <p class="small" id="built-why"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="prontos">
+      <div class="head">
+        <span class="kicker">parte 4</span>
+        <h2>Prompts montados, da primeira leitura à resposta aos pareceristas</h2>
+        <p>Cada exemplo já vem com as quatro partes coloridas. Troque o que está <mark style="background:transparent;border-bottom:2px dashed currentColor;font-weight:700">sublinhado</mark> pelo seu caso antes de colar no chat do caderno.</p>
+      </div>
+      <div class="chips" id="filters" role="group" aria-label="Filtrar por fase"></div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="seg-r"></i>Papel</span><span><i class="seg-c"></i>Contexto</span><span><i class="seg-f"></i>Foco</span><span><i class="seg-o"></i>Formato</span>
+      </div>
+      <div class="lib" id="lib"></div>
+    </section>
+
+    <section id="teste">
+      <div class="head">
+        <span class="kicker">parte 5</span>
+        <h2>Teste rápido: qual pedido você faria?</h2>
+        <p>Cinco situações bem comuns de quem está publicando. Escolha uma opção e leia o comentário.</p>
+      </div>
+      <div class="sheet quiz" id="quiz"></div>
+    </section>
+
+    <section id="cuidados">
+      <div class="head">
+        <span class="kicker">parte 6</span>
+        <h2>O que ajuda, o que atrapalha</h2>
+        <p>A IA acelera muito, mas quem responde pelo artigo é você. Algumas coisas que a gente aprendeu na prática:</p>
+      </div>
+      <div class="two">
+        <div class="note g taped">
+          <h3>Ajuda muito</h3>
+          <ul>
+            <li><b>Ir direto ao ponto.</b>Informação demais que não tem a ver com o pedido só confunde.</li>
+            <li><b>Pedir exemplos.</b>"Mostre como ficaria em uma frase" vale mais que uma explicação longa.</li>
+            <li><b>Conversar em rodadas.</b>Use a resposta anterior para refinar o próximo pedido.</li>
+            <li><b>Subir as normas da revista.</b>Com elas no caderno, a IA confere o seu texto contra as regras certas.</li>
+          </ul>
+        </div>
+        <div class="note p taped">
+          <h3>Evite</h3>
+          <ul>
+            <li><b>Esperar perfeição no primeiro pedido.</b>Quase nunca acontece, e tudo bem.</li>
+            <li><b>Usar sem revisar.</b>Resposta superficial ou desatualizada aparece, principalmente no começo.</li>
+            <li><b>Pedir sem contexto.</b>Sem saber da sua área e da sua revista, a IA responde no geral.</li>
+            <li><b>Copiar e colar no artigo.</b>Adapte, reescreva com a sua voz. O texto tem que ser seu.</li>
+            <li><b>Confiar em referência que você não leu.</b>IA pode inventar artigo com cara de real.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sheet rounds">
+        <span class="margin-note">Exemplo de conversa em rodadas</span>
+        <div class="msg me"><span class="who">Você</span>Analisa a minha introdução.</div>
+        <div class="msg ai"><span class="who">Gemini Notebook</span>A introdução apresenta o tema de forma clara e traz referências relevantes. Poderia ser mais objetiva em alguns trechos.</div>
+        <div class="msg me"><span class="who">Você, refinando</span>Aja como parecerista. Minha introdução é a fonte "Intro". Identifique as 3 frases que mais precisam de citação e diga se alguma das outras fontes sustenta cada uma. Responda em tabela.</div>
+        <div class="msg ai"><span class="who">Gemini Notebook</span>1. "O uso de IA cresceu entre estudantes": sem citação; a Fonte 2 sustenta (p. 3). 2. "Professores resistem à tecnologia": sem citação; nenhuma fonte sustenta. 3. …</div>
+        <p class="small">Esse diálogo é um exemplo que a gente montou para a oficina.</p>
+      </div>
+      <div class="two">
+        <div class="sheet ck" id="ck">
+          <span class="margin-note">Antes de clicar em "submeter"</span>
+          <label><input type="checkbox"><span>Abri e li cada referência que a IA me ajudou a encontrar.</span></label>
+          <label><input type="checkbox"><span>O texto final foi escrito ou reescrito por mim.</span></label>
+          <label><input type="checkbox"><span>Li o que a revista diz sobre o uso de IA.</span></label>
+          <label><input type="checkbox"><span>Declarei o uso de IA onde a revista pede.</span></label>
+          <label><input type="checkbox"><span>Não subi material confidencial de outras pessoas, como um artigo que estou avaliando.</span></label>
+          <p class="ck-result" id="ck-result">faltam 5 itens…</p>
+        </div>
+        <div class="note y taped">
+          <h3>A IA ajuda, mas não assina</h3>
+          <p>Ferramenta de IA não pode ser autora de artigo: ela não responde pelo que foi escrito. Use para entender, organizar e revisar. As ideias, as conclusões e o texto são seus. E conte no artigo como você usou, do jeito que a revista pedir.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas">
+      <div class="head">
+        <span class="kicker">parte 7</span>
+        <h2>Dúvidas que sempre aparecem</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Preciso usar as quatro partes sempre?</summary><p>Não. Para uma dúvida rápida, uma pergunta simples resolve. Quanto mais importante a tarefa (resumo, carta ao editor, resposta a parecer), mais vale montar o pedido completo.</p></details>
+        <details><summary>Funciona em qualquer área?</summary><p>Sim. Saúde, Agrárias, Educação, Computação… o que muda é o papel e o contexto que você dá. A estrutura é a mesma.</p></details>
+        <details><summary>A IA pode escrever o meu artigo?</summary><p>Ela pode ajudar a organizar ideias, apontar problemas e sugerir caminhos. Mas o texto submetido precisa ser seu, e muitas revistas recusam texto gerado por IA sem declaração. Pense nela como uma colega que lê seu rascunho, não como quem escreve por você.</p></details>
+        <details><summary>Preciso declarar que usei IA?</summary><p>Na maioria das revistas, sim. Cada uma tem a sua regra, geralmente nas normas para autores. Na dúvida, declare: diga qual ferramenta usou e para quê.</p></details>
+        <details><summary>Escrevo o pedido em português ou em inglês?</summary><p>Pode ser em português, mesmo que as fontes estejam em inglês. Se o artigo for em inglês, peça a resposta em inglês no Formato: "responda em inglês acadêmico".</p></details>
+        <details><summary>Por que usar o Gemini Notebook e não um chat comum?</summary><p>Porque ele responde a partir dos arquivos que você colocou no caderno e mostra de onde tirou cada coisa. Para artigo científico, onde tudo precisa de fonte, isso faz muita diferença.</p></details>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><strong>Estudar com Inteligência</strong>, minicurso da SNCT 2026 na UFRPE</span>
+    <span>Moisés Tavares da Silva · moises.tavares@ufrpe.br</span>
+    <span>Déborah Camilly Barbosa Leal Silva · deborah.leal@ufrpe.br</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const hl = s => esc(s).replace(/\[([^\]]+)\]/g, '<mark>$1</mark>');
+const plain = s => s.replace(/[\[\]]/g, '');
+const K = ['r', 'c', 'f', 'o'];
+const NAMES = { r: 'Papel', c: 'Contexto', f: 'Foco', o: 'Formato' };
+const segs = (p, cls = '') => K.filter(k => p[k]).map(k => `<span class="seg seg-${k}${cls}" title="${NAMES[k]}">${hl(p[k])}</span>`).join(' ');
+
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast.h); toast.h = setTimeout(() => { t.hidden = true; }, 1800);
+}
+function copyText(text, el) {
+  const fallback = () => {
+    const r = document.createRange(); r.selectNodeContents(el);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    toast('Texto selecionado. Use Ctrl+C para copiar');
+  };
+  try { navigator.clipboard.writeText(text).then(() => toast('Copiado!'), fallback); } catch (e) { fallback(); }
+}
+
+/* 2: passo a passo */
+const walk = [
+  { k: 'r', title: 'Diga quem a IA deve ser',
+    text: 'Dar um papel muda o vocabulário e o nível de exigência da resposta. Um "parecerista" olha o texto de um jeito bem diferente de um "assistente".',
+    bad: 'Revise o meu artigo.',
+    good: 'Aja como parecerista de uma revista de Educação, acostumado a avaliar artigos empíricos.',
+    seg: 'Aja como parecerista de uma revista de [Educação], acostumado a avaliar artigos empíricos.' },
+  { k: 'c', title: 'Conte o que está acontecendo',
+    text: 'A IA não sabe que é o seu primeiro artigo, nem para qual revista você vai mandar, nem o que a revista exige. Sem contexto, a resposta vem genérica. Com contexto, vem sob medida.',
+    bad: 'O artigo está nas fontes.',
+    good: 'Sou mestranda e vou submeter meu primeiro artigo à revista X. O manuscrito e as normas da revista estão nas fontes.',
+    seg: 'Sou [mestranda] e vou submeter meu primeiro artigo à revista [nome da revista]. O manuscrito e as normas para autores estão nas fontes deste caderno.' },
+  { k: 'f', title: 'Diga exatamente o que você quer',
+    text: 'Fuja do "analisa isso". Use um verbo de ação e diga quanto você quer. Quanto mais específico o pedido, mais específica a resposta.',
+    verbs: ['identifique', 'compare', 'aponte', 'liste', 'sugira', 'organize'],
+    bad: 'Analisa o artigo.',
+    good: 'Identifique os 3 pontos mais frágeis que um parecerista provavelmente apontaria.',
+    seg: 'Identifique os 3 pontos mais frágeis que um parecerista provavelmente apontaria, considerando as normas da revista.' },
+  { k: 'o', title: 'Escolha o formato da resposta',
+    text: 'Tabela, tópicos, limite de palavras, idioma, norma ABNT ou APA. Definir o formato poupa um tempão de edição depois.',
+    bad: '(não dizer nada e receber 4 parágrafos corridos)',
+    good: 'Responda em uma tabela: problema, trecho e página, por que é um problema, sugestão de ajuste.',
+    seg: 'Responda em uma tabela com: problema, trecho e página, por que é um problema e uma sugestão de ajuste. No máximo 300 palavras.' }
+];
+let wi = 0, seen = new Set([0]);
+const growTags = ['só o papel… ainda falta muito', 'papel + contexto, já melhorou', 'falta só dizer como quer receber', 'pronto! pode colar no caderno ✓'];
+function renderWalk(animate) {
+  $('#walk-tabs').innerHTML = walk.map((s, i) => `<button type="button" data-i="${i}" aria-pressed="${i === wi}" class="${seen.has(i) && i !== wi ? 'done' : ''}"><b style="color:var(--${s.k}-ink)">${s.k.toUpperCase()}</b><span>${NAMES[s.k]}</span></button>`).join('');
+  const s = walk[wi];
+  $('#step-body').innerHTML = `
+    <span class="margin-note">passo ${wi + 1} de 4</span>
+    <h3><span class="seg seg-${s.k}">${s.k.toUpperCase()}</span> ${esc(s.title)}</h3>
+    <p>${esc(s.text)}</p>
+    ${s.verbs ? `<div class="verbs">${s.verbs.map(v => `<span>${v}</span>`).join('')}</div>` : ''}
+    <div class="compare"><div class="bad"><b>Em vez de</b>${esc(s.bad)}</div><div class="good"><b>Prefira</b>${esc(s.good)}</div></div>
+    <div class="walk-nav">
+      ${wi > 0 ? '<button class="btn" type="button" id="w-prev">← Voltar</button>' : ''}
+      ${wi < 3 ? `<button class="btn main" type="button" id="w-next">Próxima letra: ${NAMES[walk[wi + 1].k]} →</button>` : '<button class="btn main" type="button" id="w-copy">Copiar o pedido completo</button>'}
+    </div>`;
+  const p = {}; walk.slice(0, wi + 1).forEach(x => { p[x.k] = x.seg; });
+  $('#grow').innerHTML = K.filter(k => p[k]).map(k => `<span class="seg seg-${k}${animate && k === s.k ? ' new' : ''}">${hl(p[k])}</span>`).join(' ');
+  $('#grow-tag').textContent = growTags[wi];
+  $('#grow-tag').style.color = wi === 3 ? 'var(--ok)' : '';
+  if ($('#w-prev')) $('#w-prev').onclick = () => go(wi - 1);
+  if ($('#w-next')) $('#w-next').onclick = () => go(wi + 1);
+  if ($('#w-copy')) $('#w-copy').onclick = () => copyText(plain(walk.map(x => x.seg).join(' ')), $('#grow'));
+}
+function go(i) { wi = i; seen.add(i); renderWalk(true); }
+$('#walk-tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (b) go(+b.dataset.i); });
+renderWalk(false);
+
+/* 3: monte o seu */
+const sits = {
+  revista: { label: 'Escolher a revista',
+    r: 'Aja como um pesquisador experiente que já publicou várias vezes na minha área.',
+    c: 'Meu artigo sobre [tema] está nas fontes, junto com as páginas de "foco e escopo" de três revistas que estou considerando.',
+    v: 'Compare', f: 'o meu artigo com o escopo de cada revista e diga qual combina mais e por quê.',
+    o: 'Responda em uma tabela: revista, o que combina, o que não combina e uma nota de 0 a 10.',
+    why: 'Usar as páginas de escopo que você subiu evita a IA sugerir revista de memória, que pode nem aceitar o seu tipo de artigo.' },
+  resumo: { label: 'Melhorar o resumo',
+    r: 'Aja como editor de uma revista da área de [sua área].',
+    c: 'Este é o resumo do meu artigo: [cole aqui]. A revista pede até 250 palavras, com objetivo, método, resultados e conclusão.',
+    v: 'Aponte', f: 'o que está faltando ou confuso em cada uma dessas partes, sem reescrever o resumo inteiro.',
+    o: 'Responda em 4 tópicos, um para cada parte, com no máximo 2 frases cada.',
+    why: 'Você recebe o diagnóstico e reescreve com a sua voz. O resumo continua sendo seu.' },
+  literatura: { label: 'Revisão de literatura',
+    r: 'Aja como orientador de mestrado na área de [sua área].',
+    c: 'As fontes deste caderno são os [8] artigos que vou usar na revisão de literatura.',
+    v: 'Compare', f: 'como cada artigo define [conceito], qual método usa e a que conclusão chega.',
+    o: 'Monte uma tabela com autor e ano, definição, método e conclusão. Depois, em até 5 linhas, diga onde concordam e onde discordam.',
+    why: 'Você enxerga a conversa entre os autores antes de escrever. A estrutura da revisão sai daí.' },
+  normas: { label: 'Conferir as normas',
+    r: 'Aja como assistente editorial da revista [nome].',
+    c: 'Nas fontes estão as normas para autores da revista e o meu manuscrito.',
+    v: 'Confira', f: 'se o manuscrito segue as normas: tamanho, estrutura, resumo, palavras-chave, citações e referências.',
+    o: 'Responda em forma de checklist, com ✓ ou ✗ em cada item e o que precisa ajustar.',
+    why: 'Muito artigo volta antes de ser avaliado só por não seguir as normas. Esse pedido pega isso cedo.' },
+  pareceres: { label: 'Responder aos pareceristas',
+    r: 'Aja como um orientador ajudando a responder uma revisão de artigo.',
+    c: 'Recebi os pareceres do meu artigo, que estão nas fontes junto com o manuscrito.',
+    v: 'Organize', f: 'todos os pedidos dos pareceristas, separando o que é obrigatório do que é sugestão.',
+    o: 'Monte uma tabela: parecerista, pedido, obrigatório ou sugestão, e onde mexer no texto.',
+    why: 'Vira o esqueleto da carta de resposta, e nenhum comentário fica esquecido.' }
+};
+let sit = 'resumo';
+$('#sits').innerHTML = Object.entries(sits).map(([k, s]) => `<button type="button" class="chip" data-s="${k}" aria-pressed="${k === sit}">${s.label}</button>`).join('');
+function fillSit() {
+  const s = sits[sit];
+  $('#b-r').value = s.r; $('#b-c').value = s.c; $('#b-fv').value = s.v; $('#b-f').value = s.f; $('#b-o').value = s.o;
+  renderBuilt();
+}
+$('#sits').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  sit = b.dataset.s;
+  document.querySelectorAll('#sits .chip').forEach(x => x.setAttribute('aria-pressed', x === b));
+  fillSit();
+});
+function built() {
+  const f = $('#b-f').value.trim();
+  let o = $('#b-o').value.trim();
+  if ($('#b-src').checked) o = (o ? o + ' ' : '') + 'Use só as fontes do caderno e diga a página de cada informação.';
+  return { r: $('#b-r').value.trim(), c: $('#b-c').value.trim(), f: f ? `${$('#b-fv').value} ${f}` : '', o };
+}
+function renderBuilt() {
+  const p = built(), n = K.filter(k => p[k]).length;
+  $('#built').innerHTML = n ? segs(p) : '<span class="small">Preencha os campos ao lado…</span>';
+  document.querySelectorAll('#meter span').forEach((m, i) => m.classList.toggle('on', !!p[K[i]]));
+  const missing = K.filter(k => !p[k]).map(k => NAMES[k].toLowerCase());
+  $('#out-tag').textContent = n === 4 ? 'pedido completo ✓' : `falta: ${missing.join(', ')}`;
+  $('#out-tag').style.color = n === 4 ? 'var(--ok)' : 'var(--no)';
+  $('#built-why').textContent = 'Por que funciona: ' + sits[sit].why;
+}
+['#b-r', '#b-c', '#b-fv', '#b-f', '#b-o', '#b-src'].forEach(s => $(s).addEventListener('input', renderBuilt));
+$('#copy-built').onclick = () => { const p = built(); copyText(plain(K.map(k => p[k]).filter(Boolean).join(' ')), $('#built')); };
+fillSit();
+
+/* 4: prompts montados */
+const stages = { antes: 'antes de escrever', escrita: 'escrevendo', sub: 'na submissão', parecer: 'depois dos pareceres' };
+const lib = [
+  { s: 'antes', t: 'Mapa dos autores',
+    r: 'Aja como orientador de mestrado na área de [sua área].', c: 'As fontes deste caderno são os [8 artigos] da minha revisão de literatura.',
+    f: 'Compare como cada artigo define [conceito], qual método usa e a que conclusão chega.', o: 'Monte uma tabela com autor e ano, definição, método, conclusão e página.',
+    why: 'Você vê de uma vez onde os autores concordam e onde discordam. É a base da revisão de literatura.',
+    ex: 'Autor | Definição | Método | Conclusão | Pág.\nSilva (2021) | … | Estudo de caso | … | 4\nLima (2023) | … | Survey | … | 7' },
+  { s: 'antes', t: 'Achar a lacuna',
+    r: 'Aja como um pesquisador experiente que avalia projetos de pesquisa.', c: 'Estou definindo a pergunta do meu artigo sobre [tema]. As fontes são os principais estudos da área.',
+    f: 'Identifique o que esses estudos ainda não responderam ou responderam pouco.', o: 'Liste até 5 lacunas em tópicos, cada uma com a fonte e a página que mostram esse limite.',
+    why: 'A lacuna é o que justifica o seu artigo. Com a página ao lado, você confere se ela existe mesmo.',
+    ex: '• Nenhum estudo olhou para escolas rurais (Fonte 2, p. 11 diz isso como limitação).\n• Só há dados de até 2022 (Fonte 4, p. 3).' },
+  { s: 'escrita', t: 'Diagnóstico do resumo',
+    r: 'Aja como editor de uma revista da área de [sua área].', c: 'Este é o resumo do meu artigo: [cole o resumo]. A revista pede até 250 palavras, com objetivo, método, resultados e conclusão.',
+    f: 'Aponte o que está faltando ou confuso em cada parte, sem reescrever o resumo.', o: 'Responda em 4 tópicos curtos, um para cada parte.',
+    why: 'A IA aponta, você reescreve. Assim o resumo continua com a sua voz.',
+    ex: 'Objetivo: claro.\nMétodo: não diz quantos participantes.\nResultados: só qualitativos, falta um número.\nConclusão: repete o objetivo.' },
+  { s: 'escrita', t: 'Frases sem citação',
+    r: 'Aja como um parecerista cuidadoso.', c: 'A minha introdução está na fonte "Introdução" e os artigos que li estão nas outras fontes.',
+    f: 'Identifique as frases da introdução que afirmam algo sem citar ninguém e diga se alguma outra fonte sustenta cada frase.', o: 'Responda em tabela: frase, fonte que sustenta (com página) ou "nenhuma".',
+    why: 'Parecerista pega isso logo. E como o caderno só usa as suas fontes, ele não inventa referência para tapar o buraco.',
+    ex: '"O uso de IA cresceu entre estudantes" | Fonte 2, p. 3\n"Professores resistem à tecnologia" | nenhuma' },
+  { s: 'escrita', t: 'Opções de título',
+    r: 'Aja como editor experiente em comunicação científica.', c: 'Meu artigo investiga [tema] com [método] e o principal resultado é [resultado].',
+    f: 'Sugira títulos que digam o tema e o resultado sem exagerar.', o: 'Dê 5 opções de até 15 palavras e, em uma linha, o ponto forte de cada.',
+    why: 'Ver várias opções lado a lado ajuda a decidir. O título final você ajusta do seu jeito.',
+    ex: '1. Flashcards digitais e retenção em Bioquímica: um estudo com 60 calouros. (diz método e público)' },
+  { s: 'sub', t: 'Qual revista combina',
+    r: 'Aja como um pesquisador que já publicou várias vezes na minha área.', c: 'Meu artigo e as páginas de "foco e escopo" de [três revistas] estão nas fontes.',
+    f: 'Compare o artigo com o escopo de cada revista e diga qual combina mais.', o: 'Responda em tabela: revista, o que combina, o que não combina, nota de 0 a 10.',
+    why: 'A comparação fica presa ao que cada revista diz de si mesma, e não ao que a IA "lembra".',
+    ex: 'Revista A | aceita estudos empíricos em ensino | foca em educação básica | 6\nRevista B | ensino superior e tecnologia | — | 9' },
+  { s: 'sub', t: 'Checklist das normas',
+    r: 'Aja como assistente editorial da revista [nome].', c: 'Nas fontes estão as normas para autores e o meu manuscrito.',
+    f: 'Confira se o manuscrito segue as normas: tamanho, estrutura, resumo, palavras-chave, citações e referências.', o: 'Responda em checklist com ✓ ou ✗ e o que ajustar em cada item.',
+    why: 'Muito artigo é devolvido antes da avaliação só por formatação. Melhor descobrir antes.',
+    ex: '✓ Até 8.000 palavras\n✗ Palavras-chave: a revista pede 3 a 5, você tem 7\n✗ Citações: a revista usa APA, o texto está em ABNT' },
+  { s: 'sub', t: 'Rascunho da carta ao editor',
+    r: 'Aja como um pesquisador acostumado a submeter artigos.', c: 'Vou submeter o artigo das fontes à revista [nome]. O principal resultado é [resultado].',
+    f: 'Sugira os pontos que a carta deve destacar para mostrar por que o artigo combina com a revista.', o: 'Faça um rascunho formal de até 200 palavras, que eu vou adaptar.',
+    why: 'Tira você da folha em branco. Depois, ajuste com o que só você sabe sobre a pesquisa.',
+    ex: 'Prezado(a) Editor(a), submetemos o manuscrito "…", que dialoga diretamente com o escopo da revista ao…' },
+  { s: 'parecer', t: 'Organizar os pareceres',
+    r: 'Aja como um orientador ajudando a responder uma revisão.', c: 'Os pareceres que recebi e o meu manuscrito estão nas fontes.',
+    f: 'Organize todos os pedidos dos pareceristas, separando o que é obrigatório do que é sugestão.', o: 'Monte uma tabela: parecerista, pedido, obrigatório ou sugestão, onde mexer no texto.',
+    why: 'Vira o esqueleto da carta de resposta, e nenhum comentário fica para trás.',
+    ex: 'P1 | ampliar a amostra | obrigatório | Método, p. 5\nP2 | citar estudo X | sugestão | Introdução, p. 2' },
+  { s: 'parecer', t: 'Responder a uma crítica dura',
+    r: 'Aja como um pesquisador sênior, educado e firme.', c: 'O parecerista 2 disse: "[cole o comentário]". Eu discordo porque [seu argumento].',
+    f: 'Sugira como responder com respeito, defendendo a escolha com base nas fontes.', o: 'Escreva um parágrafo de até 120 palavras, que eu vou revisar antes de enviar.',
+    why: 'Ajuda a trocar o tom de desabafo por um tom profissional, sem abrir mão do seu argumento.',
+    ex: 'Agradecemos a observação. Optamos por manter o recorte porque, como discutido em Lima (2023, p. 7)…' }
+];
+let filter = 'all';
+function renderFilters() {
+  const items = [['all', 'Todas as fases']].concat(Object.entries(stages).map(([k, v]) => [k, v[0].toUpperCase() + v.slice(1)]));
+  $('#filters').innerHTML = items.map(([k, l]) => `<button type="button" class="chip" data-f="${k}" aria-pressed="${k === filter}">${l}</button>`).join('');
+}
+function renderLib() {
+  $('#lib').innerHTML = lib.map((x, i) => ({ x, i })).filter(({ x }) => filter === 'all' || x.s === filter).map(({ x, i }) => `
+    <article class="card taped">
+      <div class="row"><span class="stage">${stages[x.s]}</span><button class="btn sm" type="button" data-copy="${i}">Copiar</button></div>
+      <h3>${esc(x.t)}</h3>
+      <p class="prompt" id="lp-${i}">${segs(x)}</p>
+      <details><summary>Por que funciona?</summary><p>${esc(x.why)}</p></details>
+      <details><summary>Como a resposta pode vir</summary><p class="ex">${esc(x.ex)}</p></details>
+    </article>`).join('');
+}
+$('#filters').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (!b) return; filter = b.dataset.f; renderFilters(); renderLib(); });
+$('#lib').addEventListener('click', e => { const b = e.target.closest('[data-copy]'); if (!b) return; const i = +b.dataset.copy, x = lib[i]; copyText(plain(K.map(k => x[k]).join(' ')), $('#lp-' + i)); });
+renderFilters(); renderLib();
+
+/* 5: teste */
+const quiz = [
+  { s: 'Você quer melhorar o resumo antes de submeter.',
+    o: ['"Melhore o meu resumo."', '"Aja como editor de uma revista de Educação. Este é o meu resumo [...] e a revista pede até 250 palavras com objetivo, método, resultados e conclusão. Aponte o que falta em cada parte, em 4 tópicos curtos."', '"Deixe o meu resumo mais acadêmico e bonito."'],
+    a: 1, f: 'Tem as quatro peças: papel (editor), contexto (a regra da revista), foco (apontar o que falta) e formato (4 tópicos). Nas outras, a IA precisa adivinhar o que é "melhor".' },
+  { s: 'Você está em dúvida entre três revistas.',
+    o: ['"Qual a melhor revista para publicar?"', '"Me indica umas revistas boas de Educação."', '"Compare o meu artigo com o foco e escopo das três revistas que estão nas fontes e responda em tabela com o que combina e o que não combina em cada uma."'],
+    a: 2, f: 'A terceira usa o seu artigo e as páginas de escopo que você subiu. As outras pedem uma lista de memória, que pode trazer revista que nem aceita o seu tipo de trabalho.' },
+  { s: 'Chegaram os pareceres: três páginas de comentários.',
+    o: ['"Reescreva o meu artigo seguindo os pareceres."', '"Organize os pedidos dos pareceristas em uma tabela: pedido, obrigatório ou sugestão, e onde mexer no texto."', '"Os pareceristas têm razão?"'],
+    a: 1, f: 'Organizar é o primeiro passo: você enxerga o tamanho do trabalho e decide o que fazer. Mandar reescrever tudo tira o artigo das suas mãos.' },
+  { s: 'A IA sugeriu uma referência que você nunca viu: "Souza (2019)".',
+    o: ['Coloco na lista de referências. Ela deve saber.', 'Peço para ela formatar em ABNT.', 'Pergunto em que fonte e página aparece Souza (2019). Se não estiver nas fontes, procuro o artigo de verdade antes de usar.'],
+    a: 2, f: 'IA pode inventar referência com cara de real. Só cite o que você abriu e leu.' },
+  { s: 'Você escreveu "analisa isso" e a resposta veio genérica.',
+    o: ['Mando a mesma pergunta de novo.', 'Refino: digo quem ela deve ser, qual é a situação, o que ela deve identificar e como quero a resposta.', 'Desisto, a IA não serve para isso.'],
+    a: 1, f: 'Quase nunca o primeiro pedido sai perfeito. Refinar a partir da resposta anterior faz parte do processo.' }
+];
+let qi = 0, res = [];
+function ticks() { return '<div class="ticks" aria-hidden="true">' + quiz.map((_, i) => res[i] === true ? '<span class="ok">✓</span>' : res[i] === false ? '<span class="no">✗</span>' : '<span>○</span>').join('') + '</div>'; }
+function renderQuiz() {
+  const box = $('#quiz');
+  if (qi >= quiz.length) {
+    const ok = res.filter(Boolean).length;
+    const msg = ok === quiz.length ? 'Gabaritou! Você já pede como quem sabe o que quer.' : ok >= 3 ? 'Mandou bem! Dá uma olhada nos comentários das que errou.' : 'Sem problema: volte ao passo a passo e repare nas quatro letras.';
+    box.innerHTML = `<div class="quiz-top"><strong>Resultado</strong>${ticks()}</div>
+      <p class="situ">Você acertou ${ok} de ${quiz.length}.</p><p class="margin-note">${msg}</p>
+      <div><button class="btn main" type="button" id="q-again">Fazer de novo</button></div>`;
+    $('#q-again').onclick = () => { qi = 0; res = []; renderQuiz(); };
+    return;
+  }
+  const q = quiz[qi];
+  box.innerHTML = `<div class="quiz-top"><span class="small">Situação ${qi + 1} de ${quiz.length}</span>${ticks()}</div>
+    <p class="situ">${esc(q.s)}</p>
+    <div class="opts">${q.o.map((o, i) => `<button type="button" class="opt" data-i="${i}">${esc(o)}</button>`).join('')}</div>
+    <div id="q-fb"></div>`;
+  box.querySelectorAll('.opt').forEach(b => b.onclick = () => pick(+b.dataset.i));
+}
+function pick(i) {
+  const q = quiz[qi], ok = i === q.a; res[qi] = ok;
+  document.querySelectorAll('.opt').forEach((b, j) => { b.disabled = true; if (j === q.a) b.classList.add('right'); else if (j === i) b.classList.add('wrong'); });
+  $('.quiz-top .ticks').outerHTML = ticks();
+  $('#q-fb').innerHTML = `<div class="fb"><span class="margin-note" style="color:${ok ? 'var(--ok)' : 'var(--no)'}">${ok ? 'Isso aí!' : 'Não foi dessa vez.'}</span>${esc(q.f)}</div>
+    <div style="margin-top:12px"><button class="btn main" type="button" id="q-next">${qi + 1 < quiz.length ? 'Próxima' : 'Ver resultado'}</button></div>`;
+  $('#q-next').onclick = () => { qi++; renderQuiz(); };
+  $('#q-next').focus();
+}
+renderQuiz();
+
+/* 6: checklist */
+$('#ck').addEventListener('change', () => {
+  const all = [...document.querySelectorAll('#ck input')], left = all.filter(i => !i.checked).length, r = $('#ck-result');
+  r.textContent = left === 0 ? 'tudo certo, pode submeter ✓' : left === 1 ? 'falta 1 item…' : `faltam ${left} itens…`;
+  r.classList.toggle('done', left === 0);
+});
+</script>
+
+</body>
+</html>
